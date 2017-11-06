@@ -8,8 +8,6 @@ No worries about findViewById, no worries about bundles, no worries about backst
 
 ## Installation
 
-[![Bintray](https://api.bintray.com/packages/uklance/maven/gradle-maven-share/images/download.svg)](https://dl.bintray.com/ifanie/izilib)
-
 ### Gradle
 ```
 compile 'com.izikode.izilib:chocopie:0.0.1'
