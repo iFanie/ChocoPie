@@ -6,6 +6,12 @@
 Smart lifecycle, hassle free state restoration, automated view loading, unified Activity and Fragment behavior and much much more.
 No worries about findViewById, no worries about bundles, no worries about backstacks and fragment management, just focus on your goal.
 
+## Installation
+
+
+
+## Usage
+
 ### Easy and intuitive lifecycle
 Create - Initialize - Restore ... it cant get any simpler than that.
 ```
