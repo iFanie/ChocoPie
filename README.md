@@ -10,7 +10,7 @@ No worries about findViewById, no worries about bundles, no worries about backst
 
 
 
-## Usage
+## Features
 
 ### Easy and intuitive lifecycle
 Create - Initialize - Restore ... it cant get any simpler than that.
@@ -179,3 +179,14 @@ class MainActivity : YumActivity() {
     }
 }
 ```
+
+## Usage
+
+* Extend YumActivity and YumFragment and implement the abstract methods.
+* Provide a restorarion policy for your classes and decorate your fields acccordingly.
+```
+@InstanceRestoration(policy = InstanceRestoration.Policy.IGNORE_ALL_FIELDS)
+public class MyActivity extends YumActivity {}
+```
+* It is recommended, but not required, to use `FragmentContainerLayout` as your Fragment root View.
+* Override LoaderDelegates methods, in your Activity/Fragment, to define your own View ID naming convention.
