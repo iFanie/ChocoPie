@@ -10,7 +10,7 @@ No worries about findViewById, no worries about bundles, no worries about backst
 
 ### Gradle
 ```
-compile 'com.izikode.izilib:chocopie:0.0.2'
+compile 'com.izikode.izilib:chocopie:0.0.3'
 ```
 
 ### Maven
@@ -18,7 +18,7 @@ compile 'com.izikode.izilib:chocopie:0.0.2'
 <dependency>
   <groupId>com.izikode.izilib</groupId>
   <artifactId>chocopie</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
   <type>pom</type>
 </dependency>
 ```

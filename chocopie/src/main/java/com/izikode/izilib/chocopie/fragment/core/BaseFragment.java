@@ -114,4 +114,12 @@ public abstract class BaseFragment extends Fragment {
             parent.setSupportActionBar(actionBar);
         }
     }
+
+    public void onBackPressed() {
+        Activity activity = getActivity();
+
+        if (activity != null) {
+            activity.onBackPressed();
+        }
+    }
 }
