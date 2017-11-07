@@ -18,43 +18,9 @@ package com.izikode.izilib.chocopie.fragment.core;
  */
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-
-import com.izikode.izilib.chocopie.activity.core.CoreActivity;
 
 public abstract class CoreFragment<F> extends LifecycleFragment<F> {
     private static final String TAG_INDEX_KEY = "TagIndexKey";
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return false;
-    }
-
-    public MenuInflater getMenuInflater() {
-        CoreActivity parent = getParent();
-        if (parent != null) {
-            return parent.getMenuInflater();
-        }
-
-        return null;
-    }
-
-    public void invalidateOptionsMenu() {
-        CoreActivity parent = getParent();
-        if (parent != null) {
-            parent.invalidateOptionsMenu();
-            parent.supportInvalidateOptionsMenu();
-        }
-    }
-
-    public void setSupportActionBar(Toolbar actionBar) {
-        CoreActivity parent = getParent();
-        if (parent != null) {
-            parent.setSupportActionBar(actionBar);
-        }
-    }
 
     @Override
     public void onPreSaveInstance(@NonNull Container writeOnlyContainer) {

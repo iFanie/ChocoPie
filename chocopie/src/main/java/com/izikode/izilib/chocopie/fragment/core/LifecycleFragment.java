@@ -78,6 +78,8 @@ public abstract class LifecycleFragment<F> extends AnimatedFragment<F> implement
         super.onResume();
         afterAppearing();
 
+        invalidateOptionsMenu();
+
         if (initialized) {
             surfaceRetainables();
         }

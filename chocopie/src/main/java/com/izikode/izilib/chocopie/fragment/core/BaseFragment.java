@@ -20,9 +20,13 @@ package com.izikode.izilib.chocopie.fragment.core;
 import android.app.Activity;
 import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 
 import com.izikode.izilib.chocopie.activity.YumActivity;
+import com.izikode.izilib.chocopie.activity.core.CoreActivity;
 import com.izikode.izilib.chocopie.utility.UniqueTag;
 
 public abstract class BaseFragment extends Fragment {
@@ -78,5 +82,36 @@ public abstract class BaseFragment extends Fragment {
     public boolean isTopmost() {
         YumActivity parent = getParent();
         return parent != null && equals(parent.getTopmostFragment());
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
+    }
+
+    public MenuInflater getMenuInflater() {
+        CoreActivity parent = getParent();
+
+        if (parent != null) {
+            return parent.getMenuInflater();
+        }
+
+        return null;
+    }
+
+    public void invalidateOptionsMenu() {
+        CoreActivity parent = getParent();
+
+        if (parent != null) {
+            parent.invalidateOptionsMenu();
+            parent.supportInvalidateOptionsMenu();
+        }
+    }
+
+    public void setSupportActionBar(Toolbar actionBar) {
+        CoreActivity parent = getParent();
+
+        if (parent != null) {
+            parent.setSupportActionBar(actionBar);
+        }
     }
 }
