@@ -35,8 +35,10 @@ public abstract class LifecycleFragment<F> extends AnimatedFragment<F> implement
 
         if (getRootView() == null) {
             setRootView(inflater.inflate(getContentView(), container, false));
-
             getRootView().getRootView().setClickable(true);
+
+            init();
+
             Integer backgroundColor = getBackgroundColor();
 
             if (backgroundColor != null) {
@@ -46,12 +48,12 @@ public abstract class LifecycleFragment<F> extends AnimatedFragment<F> implement
                     getRootView().getRootView().setBackgroundColor(getContext().getResources().getColor(backgroundColor));
                 }
             }
+
+            loadViews();
+            create();
+        } else {
+            init();
         }
-
-        init();
-
-        loadViews();
-        create();
 
         if (!initialized) {
             initialize();
