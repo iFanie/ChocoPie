@@ -55,10 +55,12 @@ public abstract class PossessiveFragment<F> extends ReparativeFragment<F> {
         for (Map.Entry<String, Object> entry : saveFailedMap.entrySet()) {
             Object data = entry.getValue();
 
-            if (data instanceof Field) {
-                persistentContainer.holdUnboxable((Field) data);
-            } else {
-                persistentContainer.holdUnboxable(entry.getKey(), data);
+            if (persistentContainer != null) {
+                if (data instanceof Field) {
+                    persistentContainer.holdUnboxable((Field) data);
+                } else {
+                    persistentContainer.holdUnboxable(entry.getKey(), data);
+                }
             }
         }
     }
@@ -66,7 +68,7 @@ public abstract class PossessiveFragment<F> extends ReparativeFragment<F> {
     @Nullable
     @Override
     protected HashMap<String, Object> recollectFailedMapReady() {
-        return persistentContainer.getUnboxables();
+        return persistentContainer != null ? persistentContainer.getUnboxables() : null;
     }
 
     public void submergeRetainables() {
@@ -79,7 +81,7 @@ public abstract class PossessiveFragment<F> extends ReparativeFragment<F> {
                     if (retainable != null) {
                         Object value = retainable.getValue();
 
-                        if (value != null) {
+                        if (value != null && persistentContainer != null) {
                             retainable.preSubmerged(value);
                             persistentContainer.holdRetainable(field.getName(), value);
                         }

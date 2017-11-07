@@ -82,10 +82,12 @@ public abstract class PossessiveActivity<A> extends ReparativeActivity<A> {
         for (Map.Entry<String, Object> entry : saveFailedMap.entrySet()) {
             Object data = entry.getValue();
 
-            if (data instanceof Field) {
-                persistentContainer.holdUnboxable((Field) data);
-            } else {
-                persistentContainer.holdUnboxable(entry.getKey(), data);
+            if (persistentContainer != null) {
+                if (data instanceof Field) {
+                    persistentContainer.holdUnboxable((Field) data);
+                } else {
+                    persistentContainer.holdUnboxable(entry.getKey(), data);
+                }
             }
         }
     }
@@ -93,7 +95,7 @@ public abstract class PossessiveActivity<A> extends ReparativeActivity<A> {
     @Nullable
     @Override
     protected HashMap<String, Object> recollectFailedMapReady() {
-        return persistentContainer.getUnboxables();
+        return persistentContainer != null ? persistentContainer.getUnboxables() : null;
     }
 
     protected void submergeRetainables() {
@@ -105,7 +107,7 @@ public abstract class PossessiveActivity<A> extends ReparativeActivity<A> {
                 if (retainable != null) {
                     Object value = retainable.getValue();
 
-                    if (value != null) {
+                    if (value != null && persistentContainer != null) {
                         retainable.preSubmerged(value);
                         persistentContainer.holdRetainable(field.getName(), value);
                     }
