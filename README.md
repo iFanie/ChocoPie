@@ -65,6 +65,40 @@ public void restore(@NonNull YumActivity savedInstance) {
 Handle the restoration of fields using the `@InstanceRestoration` class annotation and the `@Restore`, `@Ignore` field annotations. Mix and match to your needs.
 You can use the restoration mechanism **on _any_ field, even Views**. Be careful how you use them though, as restored Views will not have a Context (see kotlin example below, for a proper View restoration).
 
+### Retainables
+Use a Retainable adaptive container for objects you want to keep alive even in between instance restorations. Perfect for async tasks.
+```
+private AsyncTask<Void, Void, Void> importantTask;
+private Retainable<AsyncTask<Void, Void, Void>> taskRetainable;
+
+@Override
+public void create() {
+    taskRetainable = new Retainable<AsyncTask<Void, Void, Void>>() {
+
+        @Override
+        public void preSubmerged(@NonNull AsyncTask<Void, Void, Void> value) {
+            // Do something, like hiding UI
+        }
+
+        @Override
+        public void postSurfaced(@NonNull AsyncTask<Void, Void, Void> value) {
+            // Do something, like regaining the object reference
+            // and showing the UI again
+            importantTask = value;
+        }
+    };
+}
+
+@Override
+public void initialize() {
+    importantTask = new AsyncTask<Void, Void, Void>() {
+        /.../
+    };
+
+    taskRetainable.setValue(importantTask);
+}
+```
+
 ### Automated view loading
 Provide a View ID naming convention or follow the default. Views will be automatically loaded for you.
 Consider these layout elements.
@@ -203,3 +237,22 @@ public class MyActivity extends YumActivity {}
 ```
 * It is recommended, but not required, to use `FragmentContainerLayout` as your Fragment root View.
 * Override LoaderDelegates methods, in your Activity/Fragment, to define your own View ID naming convention.
+* Retainables are available in both YumActivity and YumFragment. Initialize your retainable in the `create` callback and assign it the value to be retained, wherever that makes sense. The retainable callbacks will not be fired on an empty instance.
+
+## Licence
+
+```
+Copyright 2017 Fanie Veizis
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
