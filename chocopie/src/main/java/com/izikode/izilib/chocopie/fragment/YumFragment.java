@@ -50,4 +50,7 @@ public abstract class YumFragment extends CoreFragment<YumFragment> {
 
     @Override
     public void beforeDismissing() {}
+
+    @Override
+    public void dismiss() {}
 }

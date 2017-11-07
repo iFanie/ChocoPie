@@ -109,6 +109,7 @@ public abstract class LifecycleFragment<F> extends AnimatedFragment<F> implement
     public void onDestroy() {
         beforeDismissing();
         super.onDestroy();
+        dismiss();
     }
 
     @CallSuper

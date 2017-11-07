@@ -107,6 +107,7 @@ public abstract class LifecycleActivity<A> extends ContainerActivity<A> implemen
     protected void onDestroy() {
         beforeDismissing();
         super.onDestroy();
+        dismiss();
     }
 
     @CallSuper

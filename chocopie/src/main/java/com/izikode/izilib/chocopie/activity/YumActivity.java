@@ -50,4 +50,7 @@ public abstract class YumActivity extends CoreActivity<YumActivity> {
 
     @Override
     public void beforeDismissing() {}
+
+    @Override
+    public void dismiss() {}
 }

@@ -32,4 +32,5 @@ public interface LifecycleDelegates<T> {
     void afterHiding();
 
     void beforeDismissing();
+    void dismiss();
 }
