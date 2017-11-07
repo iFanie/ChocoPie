@@ -18,7 +18,6 @@ package com.izikode.izilib.chocopie.fragment.core;
  */
 
 import android.support.annotation.Nullable;
-import android.view.Menu;
 
 import com.izikode.izilib.chocopie.delegate.ScreenDelegates;
 
@@ -29,6 +28,4 @@ public abstract class ScreenFragment extends BaseFragment implements ScreenDeleg
     public Integer getBackgroundColor() {
         return null;
     }
-
-    public abstract boolean onCreateOptionsMenu(Menu menu);
 }
