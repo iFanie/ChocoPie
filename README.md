@@ -229,15 +229,15 @@ class MainActivity : YumActivity() {
 
 ## Usage
 
-* Extend YumActivity and YumFragment and implement the abstract methods.
+* Extend `YumActivity` and `YumFragment` and implement the abstract methods.
 * Provide a restorarion policy for your classes and decorate your fields acccordingly.
 ```
 @InstanceRestoration(policy = InstanceRestoration.Policy.IGNORE_ALL_FIELDS)
 public class MyActivity extends YumActivity {}
 ```
-* It is recommended, but not required, to use `FragmentContainerLayout` as your Fragment root View.
-* Override LoaderDelegates methods, in your Activity/Fragment, to define your own View ID naming convention.
-* Retainables are available in both YumActivity and YumFragment. Initialize your retainable in the `create` callback and assign it the value to be retained, wherever that makes sense. The retainable callbacks will not be fired on an empty instance.
+* It is recommended, but not required, to use `FragmentContainerLayout` as your container View for Fragments in your YumActivity.
+* Override `LoaderDelegates` methods, in your Activity/Fragment, to define your own View ID naming convention. The name format is a simple String parsed with plain Java `String.format()`. The available indexed parts are found in the `LoaderDelegates.ViewNaming` enumeration.
+* `Retainables` are available in both YumActivity and YumFragment. Initialize your retainable in the `create` callback and assign it the value to be retained, wherever that makes sense. The retainable callbacks will not be fired on an empty instance.
 
 ## Licence
 
