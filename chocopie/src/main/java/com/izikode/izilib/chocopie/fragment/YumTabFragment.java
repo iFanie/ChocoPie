@@ -17,8 +17,10 @@ package com.izikode.izilib.chocopie.fragment;
  *
  */
 
+import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.v4.app.Fragment;
 
 public abstract class YumTabFragment extends YumFragment {
 
@@ -28,5 +30,18 @@ public abstract class YumTabFragment extends YumFragment {
     @DrawableRes
     public int getIconResource() {
         return 0;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (tag.getIndex() == null) {
+            Fragment parent = getParentFragment();
+
+            if (parent instanceof YumFragment) {
+                tag.setIndex(((YumFragment) parent).tag.getIndex());
+            }
+        }
     }
 }
