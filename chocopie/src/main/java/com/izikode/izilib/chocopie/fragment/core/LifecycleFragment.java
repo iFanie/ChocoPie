@@ -29,10 +29,11 @@ import android.view.ViewGroup;
 import com.izikode.izilib.chocopie.delegate.LifecycleDelegates;
 
 public abstract class LifecycleFragment<F> extends AnimatedFragment<F> implements LifecycleDelegates<F> {
+    private static final String INITIALIZED_KEY = "InitializedKey";
+
+    private Boolean initialized;
 
     private void handleCreation(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle bundle) {
-        initialized = bundle != null;
-
         if (getRootView() == null) {
             setRootView(inflater.inflate(getContentView(), container, false));
             getRootView().getRootView().setClickable(true);
@@ -55,8 +56,9 @@ public abstract class LifecycleFragment<F> extends AnimatedFragment<F> implement
             init();
         }
 
-        if (!initialized) {
+        if ((initialized == null || !initialized) && bundle == null) {
             initialize();
+            initialized = true;
         }
     }
 
@@ -82,12 +84,8 @@ public abstract class LifecycleFragment<F> extends AnimatedFragment<F> implement
 
         invalidateOptionsMenu();
 
-        if (initialized) {
+        if (initialized != null && initialized) {
             surfaceRetainables();
-        }
-
-        if (!initialized) {
-            initialized = true;
         }
     }
 
@@ -112,6 +110,18 @@ public abstract class LifecycleFragment<F> extends AnimatedFragment<F> implement
         beforeDismissing();
         super.onDestroy();
         dismiss();
+    }
+
+    @CallSuper
+    @Override
+    public void onPreSaveInstance(@NonNull Container writeOnlyContainer) {
+        writeOnlyContainer.set(INITIALIZED_KEY, initialized);
+    }
+
+    @CallSuper
+    @Override
+    public void onPreRestoreInstance(@NonNull Container readOnlyContainer) {
+        initialized = (Boolean) readOnlyContainer.get(INITIALIZED_KEY);
     }
 
     @CallSuper

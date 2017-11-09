@@ -41,12 +41,6 @@ public abstract class BaseFragment extends Fragment {
         this.rootView = rootView;
     }
 
-    protected boolean initialized;
-
-    public boolean isInitialized() {
-        return initialized;
-    }
-
     public YumActivity getParent() {
         Activity activity = getActivity();
         if (activity instanceof YumActivity) {

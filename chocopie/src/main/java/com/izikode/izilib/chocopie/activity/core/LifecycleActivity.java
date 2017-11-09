@@ -26,12 +26,11 @@ import android.support.annotation.Nullable;
 import com.izikode.izilib.chocopie.delegate.LifecycleDelegates;
 
 public abstract class LifecycleActivity<A> extends ContainerActivity<A> implements LifecycleDelegates<A> {
+    private static final String INITIALIZED_KEY = "InitializedKey";
 
-    private boolean initialized;
+    private Boolean initialized;
 
     private void handleCreation(@Nullable Bundle bundle) {
-        initialized = bundle != null;
-
         setContentView(getContentView());
         init();
 
@@ -40,8 +39,9 @@ public abstract class LifecycleActivity<A> extends ContainerActivity<A> implemen
 
         create();
 
-        if (!initialized) {
+        if ((initialized == null || !initialized) && bundle == null) {
             initialize();
+            initialized = true;
         }
     }
 
@@ -72,12 +72,8 @@ public abstract class LifecycleActivity<A> extends ContainerActivity<A> implemen
         super.onResume();
         afterAppearing();
 
-        if (initialized) {
+        if (initialized != null && initialized) {
             surfaceRetainables();
-        }
-
-        if (!initialized) {
-            initialized = true;
         }
     }
 
@@ -108,6 +104,20 @@ public abstract class LifecycleActivity<A> extends ContainerActivity<A> implemen
         beforeDismissing();
         super.onDestroy();
         dismiss();
+    }
+
+    @CallSuper
+    @Override
+    public void onPreSaveInstance(@NonNull Container writeOnlyContainer) {
+        super.onPreSaveInstance(writeOnlyContainer);
+        writeOnlyContainer.set(INITIALIZED_KEY, initialized);
+    }
+
+    @CallSuper
+    @Override
+    public void onPreRestoreInstance(@NonNull Container readOnlyContainer) {
+        super.onPreRestoreInstance(readOnlyContainer);
+        initialized = (Boolean) readOnlyContainer.get(INITIALIZED_KEY);
     }
 
     @CallSuper

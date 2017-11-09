@@ -30,7 +30,7 @@ ext {
     siteUrl = 'https://github.com/iFanie/ChocoPie'
     gitUrl = 'https://github.com/iFanie/ChocoPie.git'
 
-    libraryVersion = '0.0.6'
+    libraryVersion = '0.0.7'
 
     developerId = 'iFanie'
     developerName = 'Fanie Veizis'
@@ -48,8 +48,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 27
 
-        versionCode 6
-        versionName "0.0.6"
+        versionCode 7
+        versionName "0.0.7"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

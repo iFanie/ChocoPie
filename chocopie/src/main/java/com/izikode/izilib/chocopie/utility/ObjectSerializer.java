@@ -70,9 +70,7 @@ public class ObjectSerializer {
             byte[] yourBytes = byteArrayOutputStream.toByteArray();
             return (Serializable) yourBytes;
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
+        } catch (IOException ignored) {} finally {
             try { byteArrayOutputStream.close(); } catch (IOException ignored) {}
         }
 
