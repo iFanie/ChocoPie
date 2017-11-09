@@ -28,6 +28,7 @@ import android.text.style.DynamicDrawableSpan;
 import android.text.style.ImageSpan;
 
 import com.izikode.izilib.chocopie.fragment.YumTabFragment;
+import com.izikode.izilib.chocopie.utility.UniqueTag;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,12 +37,16 @@ import java.util.List;
 public class YumTabAdapter extends FragmentPagerAdapter {
 
     private Context adapterContext;
+    private UniqueTag tag;
+
     private List<Class<? extends YumTabFragment>> adapterData;
 
-    public YumTabAdapter(Context context, FragmentManager fragmentManager) {
+    public YumTabAdapter(Context context, FragmentManager fragmentManager, UniqueTag parentTag) {
         super(fragmentManager);
 
         adapterContext = context;
+        tag = parentTag;
+
         adapterData = new ArrayList<>();
     }
 
@@ -49,7 +54,10 @@ public class YumTabAdapter extends FragmentPagerAdapter {
     public YumTabFragment getItem(int position) {
         try {
 
-            return adapterData.get(position).newInstance();
+            YumTabFragment instance = adapterData.get(position).newInstance();
+            instance.tag.setIndex(tag.getIndex());
+
+            return instance;
 
         } catch (InstantiationException ignored) {
             return null;
@@ -63,6 +71,7 @@ public class YumTabAdapter extends FragmentPagerAdapter {
         try {
 
             YumTabFragment instance = adapterData.get(position).newInstance();
+            instance.tag.setIndex(tag.getIndex());
 
             int titleResource = instance.getTitleResource();
             String title = adapterContext.getResources().getString(titleResource);

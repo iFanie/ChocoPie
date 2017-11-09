@@ -31,17 +31,4 @@ public abstract class YumTabFragment extends YumFragment {
     public int getIconResource() {
         return 0;
     }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (tag.getIndex() == null) {
-            Fragment parent = getParentFragment();
-
-            if (parent instanceof YumFragment) {
-                tag.setIndex(((YumFragment) parent).tag.getIndex());
-            }
-        }
-    }
 }
