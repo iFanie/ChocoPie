@@ -38,16 +38,24 @@ public abstract class PossessiveActivity<A> extends ReparativeActivity<A> {
     private PersistentFragment persistentFragment;
 
     protected PersistentFragment.Container persistentContainer;
-    private List<PossessiveFragment> pendingContainers;
+    private HashMap<PossessiveFragment, PossessiveFragment.ContainerRequest> pendingContainers;
 
     private List<Field> retainables;
 
-    public void requestPersistentContainer(PossessiveFragment fragment) {
+    public void requestPersistentContainer(PossessiveFragment fragment, PossessiveFragment.ContainerRequest containerRequest) {
         if (persistentFragment != null) {
             fragment.setPersistentContainer(persistentFragment.get(fragment));
+
+            if (containerRequest != null) {
+                containerRequest.persistentContainerReady();
+            }
         } else {
-            pendingContainers.add(fragment);
+            pendingContainers.put(fragment, containerRequest);
         }
+    }
+
+    public void requestPersistentContainer(PossessiveFragment fragment) {
+        requestPersistentContainer(fragment, null);
     }
 
     public PersistentFragment.Container getPersistentContainer(PossessiveFragment fragment) {
@@ -63,7 +71,7 @@ public abstract class PossessiveActivity<A> extends ReparativeActivity<A> {
     protected void init() {
         super.init();
 
-        pendingContainers = new ArrayList<>();
+        pendingContainers = new HashMap<>();
 
         retainables = new ArrayList<>();
         retainables.addAll(Reflector.getDeclaredFieldsByType(this, Retainable.class));
@@ -146,8 +154,15 @@ public abstract class PossessiveActivity<A> extends ReparativeActivity<A> {
             persistentContainer = ((PersistentFragment) fragment).get();
 
             if (pendingContainers != null && pendingContainers.size() > 0) {
-                for (PossessiveFragment pendingFragment : pendingContainers) {
+                for (Map.Entry<PossessiveFragment, PossessiveFragment.ContainerRequest> entry : pendingContainers.entrySet()) {
+                    PossessiveFragment pendingFragment = entry.getKey();
+                    PossessiveFragment.ContainerRequest containerRequest = entry.getValue();
+
                     pendingFragment.setPersistentContainer(((PersistentFragment) fragment).get(pendingFragment));
+
+                    if (containerRequest != null) {
+                        containerRequest.persistentContainerReady();
+                    }
                 }
 
                 pendingContainers.clear();

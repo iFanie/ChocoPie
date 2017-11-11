@@ -62,9 +62,9 @@ public abstract class ReparativeFragment<F> extends LoaderFragment implements Re
             if (saveFailedMap.size() > 0) {
                 onSaveFailedMapReady(saveFailedMap);
             }
-
-            writeOnlyContainer.flush();
         }
+
+        writeOnlyContainer.flush();
     }
 
     @Nullable

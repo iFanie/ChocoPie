@@ -30,6 +30,7 @@ import com.izikode.izilib.chocopie.delegate.LifecycleDelegates;
 
 public abstract class LifecycleFragment<F> extends AnimatedFragment<F> implements LifecycleDelegates<F> {
     private static final String INITIALIZED_KEY = "InitializedKey";
+    private static final String TAG_INDEX_KEY = "TagIndexKey";
 
     private Boolean initialized;
 
@@ -116,12 +117,20 @@ public abstract class LifecycleFragment<F> extends AnimatedFragment<F> implement
     @Override
     public void onPreSaveInstance(@NonNull Container writeOnlyContainer) {
         writeOnlyContainer.set(INITIALIZED_KEY, initialized);
+        writeOnlyContainer.set(TAG_INDEX_KEY, tag.getIndex());
     }
 
     @CallSuper
     @Override
     public void onPreRestoreInstance(@NonNull Container readOnlyContainer) {
         initialized = (Boolean) readOnlyContainer.get(INITIALIZED_KEY);
+        Integer savedIndex = (Integer) readOnlyContainer.get(TAG_INDEX_KEY);
+
+        if (savedIndex != null) {
+            tag.setIndex(savedIndex);
+        }
+
+        getParent().requestPersistentContainer(this);
     }
 
     @CallSuper

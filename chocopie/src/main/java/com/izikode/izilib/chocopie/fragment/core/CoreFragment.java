@@ -17,29 +17,6 @@ package com.izikode.izilib.chocopie.fragment.core;
  *
  */
 
-import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
-
 public abstract class CoreFragment<F> extends LifecycleFragment<F> {
-    private static final String TAG_INDEX_KEY = "TagIndexKey";
 
-    @CallSuper
-    @Override
-    public void onPreSaveInstance(@NonNull Container writeOnlyContainer) {
-        super.onPreSaveInstance(writeOnlyContainer);
-        writeOnlyContainer.set(TAG_INDEX_KEY, tag.getIndex());
-    }
-
-    @CallSuper
-    @Override
-    public void onPreRestoreInstance(@NonNull Container readOnlyContainer) {
-        super.onPreRestoreInstance(readOnlyContainer);
-
-        Integer savedIndex = (Integer) readOnlyContainer.get(TAG_INDEX_KEY);
-        if (savedIndex != null) {
-            tag.setIndex(savedIndex);
-        }
-
-        getParent().requestPersistentContainer(this);
-    }
 }

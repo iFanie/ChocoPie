@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">IziLib</string>
     <string name="tab_title">Tab title</string>
+
+    <string name="title_one">Title one</string>
+    <string name="title_two">Title two</string>
 </resources>

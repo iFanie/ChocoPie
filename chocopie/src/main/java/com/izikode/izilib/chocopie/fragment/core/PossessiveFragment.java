@@ -33,6 +33,10 @@ import java.util.Map;
 
 public abstract class PossessiveFragment<F> extends ReparativeFragment<F> {
 
+    public interface ContainerRequest {
+        void persistentContainerReady();
+    }
+
     protected PersistentFragment.Container persistentContainer;
 
     public void setPersistentContainer(PersistentFragment.Container persistentContainer) {
@@ -51,16 +55,28 @@ public abstract class PossessiveFragment<F> extends ReparativeFragment<F> {
     }
 
     @Override
-    public void onSaveFailedMapReady(@NonNull HashMap<String, Object> saveFailedMap) {
+    public void onSaveFailedMapReady(@NonNull final HashMap<String, Object> saveFailedMap) {
+        if (persistentContainer != null) {
+            buildSaveFailedMap(saveFailedMap);
+        } else {
+            getParent().requestPersistentContainer(this, new ContainerRequest() {
+
+                @Override
+                public void persistentContainerReady() {
+                    buildSaveFailedMap(saveFailedMap);
+                }
+            });
+        }
+    }
+
+    private void buildSaveFailedMap(@NonNull HashMap<String, Object> saveFailedMap) {
         for (Map.Entry<String, Object> entry : saveFailedMap.entrySet()) {
             Object data = entry.getValue();
 
-            if (persistentContainer != null) {
-                if (data instanceof Field) {
-                    persistentContainer.holdUnboxable((Field) data);
-                } else {
-                    persistentContainer.holdUnboxable(entry.getKey(), data);
-                }
+            if (data instanceof Field) {
+                persistentContainer.holdUnboxable((Field) data);
+            } else {
+                persistentContainer.holdUnboxable(entry.getKey(), data);
             }
         }
     }
@@ -68,6 +84,10 @@ public abstract class PossessiveFragment<F> extends ReparativeFragment<F> {
     @Nullable
     @Override
     protected HashMap<String, Object> recollectFailedMapReady() {
+        if (persistentContainer == null) {
+            persistentContainer = getParent().getPersistentContainer(this);
+        }
+
         return persistentContainer != null ? persistentContainer.getUnboxables() : null;
     }
 

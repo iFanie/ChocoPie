@@ -28,19 +28,19 @@ public class UniqueTag {
     }
 
     private final String originator;
-    private Integer index;
+    private String index;
 
     public String getOriginator() {
         return originator;
     }
 
     public Integer getIndex() {
-        return index;
+        return Integer.parseInt(index);
     }
 
     public void setIndex(Integer index) {
         if (this.index == null) {
-            this.index = index;
+            this.index = String.valueOf(index);
         }
     }
 

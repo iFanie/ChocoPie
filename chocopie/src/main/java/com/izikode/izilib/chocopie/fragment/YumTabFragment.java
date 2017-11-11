@@ -17,10 +17,8 @@ package com.izikode.izilib.chocopie.fragment;
  *
  */
 
-import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
-import android.support.v4.app.Fragment;
 
 public abstract class YumTabFragment extends YumFragment {
 

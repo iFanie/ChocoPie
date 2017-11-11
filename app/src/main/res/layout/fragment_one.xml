@@ -5,39 +5,24 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/fragmentone_text"
+        android:id="@+id/fragmentone_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="166dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="36dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="34dp" />
 
     <Button
-        android:id="@+id/fragmentone_hi"
+        android:id="@+id/fragmentone_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="148dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="24dp"
-        android:text="Hi"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="Button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentone_text" />
-
-    <Button
-        android:id="@+id/fragmentone_tab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="148dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="19dp"
-        android:text="Tab"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentone_hi" />
-
+        app:layout_constraintTop_toBottomOf="@+id/fragmentone_label"
+        android:layout_marginLeft="16dp" />
 </android.support.constraint.ConstraintLayout>
