@@ -30,7 +30,7 @@ ext {
     siteUrl = 'https://github.com/iFanie/ChocoPie'
     gitUrl = 'https://github.com/iFanie/ChocoPie.git'
 
-    libraryVersion = '0.0.10'
+    libraryVersion = '0.0.11'
 
     developerId = 'iFanie'
     developerName = 'Fanie Veizis'
