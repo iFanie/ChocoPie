@@ -1,7 +1,7 @@
 # ChocoPie
 #### Write yummy code
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Experimental](https://img.shields.io/badge/stability-experimental-orange.svg)](https://shields.io/)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Experimental](https://img.shields.io/badge/Stability-Experimental-orange.svg)](https://shields.io/)
 
 Smart lifecycle, hassle free state restoration, automated view loading, unified Activity and Fragment behavior and much much more.
 No worries about findViewById, no worries about bundles, no worries about backstacks and fragment management, just focus on your goal.
