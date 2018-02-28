@@ -30,7 +30,8 @@ ext {
     siteUrl = 'https://github.com/iFanie/ChocoPie'
     gitUrl = 'https://github.com/iFanie/ChocoPie.git'
 
-    libraryVersion = '0.0.11'
+    libraryBuild = 12
+    libraryVersion = '0.0.12'
 
     developerId = 'iFanie'
     developerName = 'Fanie Veizis'
@@ -48,8 +49,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 27
 
-        versionCode 11
-        versionName "0.0.11"
+        versionCode libraryBuild
+        versionName libraryVersion
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -60,13 +61,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion '27.1.0'
+                }
+            }
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.android.support:appcompat-v7:27.0.0'
-    implementation 'com.android.support:design:27.0.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
 
     testImplementation 'junit:junit:4.12'
 

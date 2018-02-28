@@ -118,11 +118,11 @@ public abstract class ContainerActivity<A> extends PossessiveActivity<A> impleme
         fragment.tag.setIndex(fragmentAbsoluteIndex);
         fragment.setPersistentContainer(getPersistentContainer(fragment));
 
-        transaction.add(fragmentContainer.getId(), fragment, fragment.tag.read());
-
         if (addToBackStack) {
             transaction.addToBackStack(topmost.tag.read());
         }
+
+        transaction.add(fragmentContainer.getId(), fragment, fragment.tag.read());
 
         if (fragment.isStackable()) {
             fragmentStackCount = (fragmentStackCount >= 0 ? fragmentStackCount : 0) + 1;
