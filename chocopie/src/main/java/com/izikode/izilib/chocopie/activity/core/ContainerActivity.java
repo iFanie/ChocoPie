@@ -165,7 +165,10 @@ public abstract class ContainerActivity<A> extends PossessiveActivity<A> impleme
             pop.beforeDismissing();
 
             getPersistentContainer(pop).wipe();
-            fragmentStackCount--;
+
+            if (pop.isStackable()) {
+                fragmentStackCount--;
+            }
         }
     }
 
