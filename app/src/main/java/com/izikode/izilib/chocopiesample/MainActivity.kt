@@ -11,7 +11,7 @@ class MainActivity : YumActivity() {
     }
 
     override fun initialize() {
-        addFragment(MainFragment())
+        addFragment(FragmentA())
     }
 
     override fun restore(savedInstance: YumActivity) {

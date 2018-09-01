@@ -20,6 +20,7 @@ package com.izikode.izilib.chocopie.activity.core;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
@@ -47,6 +48,7 @@ public abstract class ContainerActivity<A> extends PossessiveActivity<A> impleme
 
     protected void initContainer() {
         Integer containerId = getFragmentContainer();
+
         if (containerId != null) {
             fragmentContainer = findViewById(containerId);
         }
@@ -63,11 +65,13 @@ public abstract class ContainerActivity<A> extends PossessiveActivity<A> impleme
     @Override
     public void onPreRestoreInstance(@NonNull Container readOnlyContainer) {
         Integer savedStackCount = (Integer) readOnlyContainer.get(FRAGMENT_STACK_COUNT_KEY);
+
         if (savedStackCount != null) {
             fragmentStackCount = savedStackCount;
         }
 
         Integer savedAbsoluteIndex = (Integer) readOnlyContainer.get(FRAGMENT_ABSOLUTE_INDEX_KEY);
+
         if (savedAbsoluteIndex != null) {
             fragmentAbsoluteIndex = savedAbsoluteIndex;
         }
@@ -100,6 +104,7 @@ public abstract class ContainerActivity<A> extends PossessiveActivity<A> impleme
         boolean addToBackStack = false;
 
         LifecycleFragment topmost = getTopmostFragment();
+
         if (topmost != null && topmost.isStackable() && fragmentStackCount > 0) {
             addToBackStack = true;
         } else if (topmost != null && !topmost.isStackable()) {
@@ -109,8 +114,10 @@ public abstract class ContainerActivity<A> extends PossessiveActivity<A> impleme
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         if (topmost != null && topmost.isStackable()) {
-            transaction.setCustomAnimations(fragment.getEnterAnimation(), fragment.getExitAnimation(),
-                    topmost.getEnterAnimation(), topmost.getExitAnimation());
+            transaction.setCustomAnimations(
+                    fragment.getEnterAnimation(), fragment.getExitAnimation(),
+                    topmost.getEnterAnimation(), topmost.getExitAnimation()
+            );
         } else {
             transaction.setCustomAnimations(fragment.getEnterAnimation(), fragment.getExitAnimation());
         }
@@ -120,6 +127,10 @@ public abstract class ContainerActivity<A> extends PossessiveActivity<A> impleme
 
         if (addToBackStack) {
             transaction.addToBackStack(topmost.tag.read());
+        } else {
+            if (!fragment.isStackable()) {
+                fragmentManager.popBackStackImmediate(fragment.tag.read(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
         }
 
         transaction.add(fragmentContainer.getId(), fragment, fragment.tag.read());
@@ -163,7 +174,6 @@ public abstract class ContainerActivity<A> extends PossessiveActivity<A> impleme
 
         if (pop != null) {
             pop.beforeDismissing();
-
             getPersistentContainer(pop).wipe();
 
             if (pop.isStackable()) {
@@ -174,6 +184,7 @@ public abstract class ContainerActivity<A> extends PossessiveActivity<A> impleme
 
     protected void resumeTopmost() {
         LifecycleFragment top = getTopmostFragment();
+
         if (top != null) {
             if (top.isStackable()) {
                 top.onResume();

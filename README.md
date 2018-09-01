@@ -1,7 +1,7 @@
 # ChocoPie
 #### Write yummy code
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Experimental](https://img.shields.io/badge/Stability-Experimental-yellow.svg)](https://shields.io/) [![Bintray](https://img.shields.io/badge/Bintray-0.0.13-lightgrey.svg)](https://dl.bintray.com/ifanie/izilib)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Experimental](https://img.shields.io/badge/Stability-Experimental-yellow.svg)](https://shields.io/) [![Bintray](https://img.shields.io/badge/Bintray-0.0.14-lightgrey.svg)](https://dl.bintray.com/ifanie/izilib)
 
 Smart lifecycle, hassle free state restoration, automated view loading, unified Activity and Fragment behavior and much much more.
 No worries about findViewById, no worries about bundles, no worries about backstacks and fragment management, just focus on your goal.
@@ -10,7 +10,7 @@ No worries about findViewById, no worries about bundles, no worries about backst
 
 ### Gradle
 ```
-compile 'com.izikode.izilib:chocopie:0.0.13'
+implementation 'com.izikode.izilib:chocopie:0.0.14'
 ```
 
 ### Maven
@@ -18,7 +18,7 @@ compile 'com.izikode.izilib:chocopie:0.0.13'
 <dependency>
   <groupId>com.izikode.izilib</groupId>
   <artifactId>chocopie</artifactId>
-  <version>0.0.13</version>
+  <version>0.0.14</version>
   <type>pom</type>
 </dependency>
 ```
@@ -242,7 +242,7 @@ public class MyActivity extends YumActivity {}
 ## Licence
 
 ```
-Copyright 2017 Fanie Veizis
+Copyright 2018 Fanie Veizis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

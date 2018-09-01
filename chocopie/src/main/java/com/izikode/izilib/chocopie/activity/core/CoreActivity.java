@@ -45,6 +45,7 @@ public abstract class CoreActivity<A> extends LifecycleActivity<A> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         LifecycleFragment topmost = getTopmostFragment();
+
         if (topmost != null) {
             topmost.onOptionsItemSelected(item);
         }
